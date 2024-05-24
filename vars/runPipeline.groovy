@@ -6,8 +6,7 @@ def call() {
             checkout scm
         }
         //def cfg = pipelineCfg()
-        def currentDir = pwd()
-        echo "Current directory: ${currentDir}"
+        //def currentDir = pwd()
         echo "${JOB_NAME}"
 
         switch(cfg.type) {
