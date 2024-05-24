@@ -1,5 +1,5 @@
 #!groovy
-library 'shared-libs'
+#library 'shared-libs'
 
 def currentDir = pwd()
 echo "Current directory: ${currentDir}"
