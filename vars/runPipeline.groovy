@@ -8,7 +8,7 @@ def call() {
         //def cfg = pipelineCfg()
         def currentDir = pwd()
         echo "Current directory: ${currentDir}"
-        printenv
+        echo "${JOB_NAME}"
 
         switch(cfg.type) {
             case "python":
