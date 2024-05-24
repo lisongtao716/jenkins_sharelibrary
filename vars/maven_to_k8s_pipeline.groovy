@@ -25,64 +25,17 @@ def call(Map map) {
             metadata:
               namespace: jenkins
             spec:
-              affinity:
-                nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                      - matchExpressions:
-                          - key: cicd
-                            operator: In
-                            values:
-                              - 'true'
-              hostAliases:
-              - ip: "192.168.12.239"
-                hostnames:
-                - "api.zjboc.hrfax-okd4.test"
-                - "console-openshift-console.apps.zjboc.hrfax-okd4.test"
-                - "oauth-openshift.apps.zjboc.hrfax-okd4.test"
-                - "downloads-openshift-console.apps.zjboc.hrfax-okd4.test"
-              volumes:
-              - name: docker-sock
-                hostPath:
-                  path: /var/run/docker.sock
-                  type: ''
-
-              - name: maven-cache
-                persistentVolumeClaim:
-                  claimName: maven-cache
-
               containers:
               - name: shell
-                image: reg.hrfax.cn/public/git:latest
+                image: bitnami/git:latest
                 command:
                 - cat
                 tty: true
 
               - name: maven
-                image: reg.hrfax.cn/public/maven:3.5.2
+                image: maven:3.5.2
                 command:
                   - cat
-                tty: true
-                volumeMounts:
-                - mountPath: /data/repository/
-                  name: maven-cache
-
-              - name: docker
-                image: reg.hrfax.cn/public/docker:19.03.11
-                command:
-                - cat
-                tty: true
-                volumeMounts:
-                - name: docker-sock
-                  mountPath: /var/run/docker.sock
-              - name: kubectl
-                image: reg.hrfax.cn/public/kubectl:1.25.12
-                securityContext:
-                  runAsUser: 1000
-                command:
-                - sleep
-                args:
-                - 99999999999
                 tty: true
             '''
     defaultContainer 'shell'
@@ -105,41 +58,7 @@ def call(Map map) {
                     }
                 }
             }
-            stage('构建镜像') {
-                steps {
-                    container('shell'){
-                        script{
-                            env.DOCKER_IMAGE_TAG = sh (script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                            env.JAR_PACKAGE_NAME = sh (script: "find ${JAR_PACKAGE_PATH}  -maxdepth 1 -type f  -name *.jar -printf '%f\n'" ,returnStdout: true).trim()
-                        }
-                    }
-                    container('docker'){
-                        script{
-                            env.DOCKER_IMAGE_URL="${DOCKER_IMAGE_REGISTRY_URL}/${DOCKER_IMAGE_PROJECT}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}-${BUILD_NUMBER}"
-                            sh """
-                                cp ${JAR_PACKAGE_PATH}/${JAR_PACKAGE_NAME}  ./
-                                sed -i "s#${DOCKER_JAR_PACKAGE_NAME}#${JAR_PACKAGE_NAME}#" ${DOCKERFILE_PATH}/${DOCKERFILE_NAME}
-                                sed -i "s#environment#${ENVIRONMENT}#" ${DOCKERFILE_PATH}/${DOCKERFILE_NAME}
-                                docker login -u 'robot-cicd' -p${REG_HRFAC_CN_HARBOR_PASSWORD} https://reg.hrfax.cn
-                                docker build -t ${DOCKER_IMAGE_URL} -f ${DOCKERFILE_PATH}/${DOCKERFILE_NAME} ${DOCKERFILE_PATH}
-                                docker push ${DOCKER_IMAGE_URL}
-                            """
-                        }
-                    }
-                }
-            }
-            stage('部署k8s') {
-                steps {
-                    container('kubectl'){
-                        script{
-                            configFileProvider([configFile(fileId: "${KUBECONFIG}", targetLocation: "${TARGETLOCATION}")]){
-                            sh """
-                                kubectl -n  ${DEPLOY_NAMESPACE} set image ${DEPLOY_TYPE}/${DEPLOY_NAME} ${DEPLOY_CONTAINER_NAME}=${DOCKER_IMAGE_URL} --kubeconfig=./kubeconfig
-                            """
-                            }
-                        }
-                    }
-                }
+
             }
         }
 
