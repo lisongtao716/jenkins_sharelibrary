@@ -5,7 +5,7 @@ def call(Map map) {
     pipeline {
     environment {
         GIT_URL =  "${map.GIT_URL}"
-        BRANCH = "${map.BRANCH}"
+        BRANCH = "${env.BRANCH}"
 
     }
     parameters {
