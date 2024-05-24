@@ -9,7 +9,7 @@ def call(Map map) {
 
     }
     parameters {
-        listGitBranches(branchFilter: '*', credentialsId: 'gitroot', defaultValue: '', name: 'BRANCH', quickFilterEnabled: true, remoteURL: "${map.GIT_URL}", selectedValue: 'NONE', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG')
+        listGitBranches(branchFilter: '*', credentialsId: 'git-root', defaultValue: '', name: 'BRANCH', quickFilterEnabled: true, remoteURL: "${map.GIT_URL}", selectedValue: 'NONE', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG')
     }
 
     // 保留最近十个流水线构建任务
