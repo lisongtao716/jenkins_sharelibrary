@@ -62,32 +62,4 @@ def call(Map map) {
             }
         }
 
-        post {
-            success {
-                script{
-                    println("success:只有构建成功才会执行")
-                    // currentBuild.description += "\n构建成功！"
-                    // deploy.AnsibleDeploy("${deployHosts}","-m ping")
-                    // tools.SendDingTalk("构建成功")
-                    // dingmes.SendDingTalk("构建成功 ✅")
-                }
-            }
-            failure {
-                script{
-                    println("failure:只有构建失败才会执行")
-                    // currentBuild.description += "\n构建失败!"
-                    // tools.SendDingTalk("构建失败")
-                    // dingmes.SendDingTalk("构建失败 ❌")
-                }
-            }
-            aborted {
-                script{
-                    println("aborted:只有取消构建才会执行")
-                    // currentBuild.description += "\n构建取消!"
-                    // tools.SendDingTalk("构建取消")
-                    // dingmes.SendDingTalk("构建失败 ❌","暂停或中断")
-                }
-            }
-        }
     }
-}
