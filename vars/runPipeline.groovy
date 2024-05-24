@@ -13,8 +13,8 @@ def call() {
 
 
         switch(cfg.type) {
-            case "python":
-                pythonPipeline(cfg)
+            case "maven-to-k8s":
+                maven-to-k8s_pipeline(cfg)
                 break
             case "nodejs":
                 nodejsPipeline(cfg)
