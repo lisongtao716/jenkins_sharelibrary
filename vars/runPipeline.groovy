@@ -5,7 +5,7 @@ def call() {
         stage('Checkout') {
             checkout scm
         }
-        def cfg = pipelineCfg()
+        //def cfg = pipelineCfg()
         def currentDir = pwd()
         echo "Current directory: ${currentDir}"
 
