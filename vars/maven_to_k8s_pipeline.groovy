@@ -44,7 +44,7 @@ def call(Map map) {
         stages {
             stage('拉取代码') {
                 steps {
-                   checkout([$class: 'GitSCM', branches: [[name: "${env.BRANCH}"]], extensions: [[$class: 'PruneStaleBranch']], gitTool: 'my_git', userRemoteConfigs: [[credentialsId: 'gitroot', url: "${env.GIT_URL}"]]])
+                   checkout([$class: 'GitSCM', branches: [[name: "${env.BRANCH}"]], extensions: [[$class: 'PruneStaleBranch']], gitTool: 'my_git', userRemoteConfigs: [[credentialsId: 'gitlan-root', url: "${env.GIT_URL}"]]])
                  }
             }
             stage('构建代码') {
