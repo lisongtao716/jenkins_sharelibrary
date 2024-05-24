@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('shareLibrary@main') _
+@Library('sharelibrary@main') _
 
 def currentDir = pwd()
 //echo "Current directory: ${currentDir}"
