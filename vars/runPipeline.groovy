@@ -6,6 +6,8 @@ def call() {
             checkout scm
         }
         def cfg = pipelineCfg()
+        def currentDir = pwd()
+        echo "Current directory: ${currentDir}"
 
         switch(cfg.type) {
             case "python":
