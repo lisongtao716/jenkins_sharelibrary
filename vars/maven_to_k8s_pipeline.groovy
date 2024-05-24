@@ -6,6 +6,7 @@ def call(Map map) {
     environment {
         GIT_URL =  "${map.GIT_URL}"
         BRANCH = "${env.BRANCH}"
+        BUILD_COMMAND = "${map.BUILD_COMMAND}"
 
     }
     parameters {
