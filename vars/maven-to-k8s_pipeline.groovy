@@ -6,19 +6,6 @@ def call(Map map) {
     environment {
         GIT_URL =  "${map.GIT_URL}"
         BRANCH = "${map.BRANCH}"
-        BUILD_COMMAND  = "${map.BUILD_COMMAND}"
-        DEPLOY_COMMAND = "${map.DEPLOY_COMMAND}"
-        DOCKERFILE_PATH = "${map.DOCKERFILE_PATH}"
-        DOCKER_IMAGE_REGISTRY_URL = "${map.DOCKER_IMAGE_REGISTRY_URL}"
-        DOCKER_IMAGE_PROJECT = "${map.DOCKER_IMAGE_PROJECT}"
-        DOCKER_IMAGE_NAME = "${map.DOCKER_IMAGE_NAME}"
-        DOCKER_JAR_PACKAGE_NAME = "${map.DOCKER_JAR_PACKAGE_NAME}"
-        DEPLOY_NAMESPACE = "${map.DEPLOY_NAMESPACE}"
-        DEPLOY_TYPE = "${map.DEPLOY_TYPE}"
-        DEPLOY_NAME =  "${map.DEPLOY_NAME}"
-        DEPLOY_CONTAINER_NAME = "${map.DEPLOY_CONTAINER_NAME}"
-        JAR_PACKAGE_PATH = "${map.JAR_PACKAGE_PATH}"
-        ENVIRONMENT = "${map.ENVIRONMENT}"
 
     }
     parameters {

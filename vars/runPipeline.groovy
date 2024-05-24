@@ -6,13 +6,13 @@ def call() {
           checkout([$class: 'GitSCM', branches: [[name: "main"]], extensions: [[$class: 'PruneStaleBranch']], gitTool: 'my_git', userRemoteConfigs: [[credentialsId: 'git-root', url: "http://172.10.32.141/ops/cicd.git"]]])
         }
 
-        def cfg = pipelineCfg()
+        def CFG = pipelineCfg()
         //def currentDir = pwd()
         echo "${JOB_NAME}"
         echo "${cfg}"
 
 
-        switch(cfg.type) {
+        switch(CFG.TYPE) {
             case "maven-to-k8s":
                 maven-to-k8s_pipeline(cfg)
                 break
