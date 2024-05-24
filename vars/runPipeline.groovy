@@ -9,7 +9,7 @@ def call() {
         def cfg = pipelineCfg()
         //def currentDir = pwd()
         echo "${JOB_NAME}"
-        echo ${cfg}
+        echo "${cfg}"
 
 
         switch(cfg.type) {
