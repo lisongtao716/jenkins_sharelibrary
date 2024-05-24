@@ -14,7 +14,7 @@ def call() {
 
         switch(CFG.TYPE) {
             case "maven-to-k8s":
-                maven-to-k8s_pipeline(CFG)
+                maven_to_k8s_pipeline(CFG)
                 break
             case "nodejs":
                 nodejsPipeline(CFG)
