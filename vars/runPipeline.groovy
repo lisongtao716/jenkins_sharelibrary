@@ -4,7 +4,7 @@ def call() {
 
     node{
         stage('Checkout') {
-          checkout([$class: 'GitSCM', branches: [[name: "main"]], extensions: [[$class: 'PruneStaleBranch']], gitTool: 'my_git', userRemoteConfigs: [[credentialsId: 'git-root', url: "http://172.10.32.141/ops/cicd.git"]]])
+          checkout([$class: 'GitSCM', branches: [[name: "main"]], extensions: [[$class: 'PruneStaleBranch']], gitTool: 'my_git', userRemoteConfigs: [[credentialsId: 'gitlan-root', url: "http://172.10.32.141/ops/cicd.git"]]])
         }
 
         def CFG = pipelineCfg()
